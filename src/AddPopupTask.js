@@ -4,7 +4,7 @@ import 'react-datepicker/dist/react-datepicker.css'
 import { LuCalendarHeart } from "react-icons/lu";
 
 
-const AddPopupTask = ({status}) => {
+const AddPopupTask = ({status, onExit, currentId, onAdd}) => {
     const [heading, setHeading] = useState();
     const [description, setDescription] = useState();
     const [selectedDate, setSelectedDate] = useState(null);
@@ -15,6 +15,20 @@ const AddPopupTask = ({status}) => {
         if(event.key === 'Enter' || event.key === 'Escape'){
             inputReference.current.blur();
         }
+    }
+
+    const handleSubmit = () => {
+        const newTask = {
+            id: currentId,
+            name: heading,
+            description: description,
+            status: status,
+            date: selectedDate
+        };
+        onAdd(newTask);
+        setHeading("");
+        setDescription("");
+        setSelectedDate(null);
     }
 
     const preventParentClicking = (event) => {
@@ -28,7 +42,7 @@ const AddPopupTask = ({status}) => {
     }, []);
 
     return (
-        <div className='fixed top-0 right-0 bottom-0 left-0'>
+        <div onClick={onExit} className='fixed top-0 right-0 bottom-0 left-0'>
             <div onClick={preventParentClicking} className='absolute w-[35rem] p-5 rounded-3xl shadow-2xl top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] bg-[#151515]'>
                 <label className=''>
                     <input
@@ -56,7 +70,7 @@ const AddPopupTask = ({status}) => {
 
                 <div className='flex items-center pr-4 justify-between mt-1 py-1'>
                 <div className='text-white bg-purple-500 rounded-md py-0.5 h-fit px-3 max-w-fit'>
-                    "penis"
+                    {status}
                 </div>
                 <label className='flex gap-1 [&>*]:text-white mb-2'>
                     <LuCalendarHeart className='top-1 relative left-7' />
@@ -73,8 +87,8 @@ const AddPopupTask = ({status}) => {
                 </div>
 
                 <div className=' [&>*]:text-white flex items-center pr-4 justify-between mt-3 py-1'>
-                    <button className='w-[49%] py-4 rounded-md bg-[#232629]'>CANCEL</button>
-                    <button className='w-[49%] py-4 rounded-md bg-[#232629]'>SUMBIT</button>
+                    <button onClick={onExit} className='w-[49%] py-4 rounded-md bg-[#232629]'>CANCEL</button>
+                    <button onClick={handleSubmit} className='w-[49%] py-4 rounded-md bg-[#232629]'>SUMBIT</button>
                 </div>
             </div>
         </div>

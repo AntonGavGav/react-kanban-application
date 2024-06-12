@@ -2,7 +2,7 @@ import React from 'react'
 import Card from './Card'
 import './Panel.css'
 
-const Panel = ({tasks, status, onEdit}) => {
+const Panel = ({tasks, status, onEdit, onAdd}) => {
   return (
     <div className="relative custom-scrollbar mt-[3vh] bg-[#232629] w-[33%] flex flex-col rounded-xl h-[90vh]">
         
@@ -23,7 +23,7 @@ const Panel = ({tasks, status, onEdit}) => {
           />
         )}
         </div>
-        <button style={{ alignSelf: 'flex-end' }} className='w-[99%] mr-[0.5%] font-bold p-9 mt-3 text-2xl text-white rounded-b-xl bg-[#151515]'>
+        <button onClick={onAdd} style={{ alignSelf: 'flex-end' }} className='w-[99%] mr-[0.5%] font-bold h-[10%] text-[150%] text-white rounded-b-xl bg-[#151515]'>
             ADD NEW CARD
         </button>
     </div>
