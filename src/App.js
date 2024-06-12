@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import Card from "./Card";
 import Status from "./Status";
 import Panel from "./Panel";
+import EditPopupTask from "./EditPopupTask";
+import AddPopupTask from "./AddPopupTask";
 
 function App() {
 
@@ -9,86 +10,100 @@ function App() {
     {
       id: 1,
       name: "Some name",
-      desciption: "Some goofy description, nevermind",
+      description: "Some goofy description, nevermind",
       status: Status.Done,
+      date: null,
     },
     {
       id: 2,
       name: "Another name",
-      desciption: "Another useless description, just to make up some space",
+      description: "Another useless description, just to make up some space",
       status: Status.InProgress,
+      date: null,
     },
     {
       id: 3,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.ToDo,
+      date: null,
     },
     {
       id: 4,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.ToDo,
+      date: null,
     },
     {
       id: 5,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 6,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 7,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 8,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 9,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 10,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 11,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 12,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 13,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
     {
       id: 14,
       name: "Arseni",
-      desciption: "is a really good homie",
+      description: "is a really good homie",
       status: Status.Done,
+      date: null,
     },
   ]);
 
@@ -98,11 +113,29 @@ function App() {
   const [InProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
 
+  const [editingTask, setEditingTask] = useState(null);
 
   const updateTaskStatus = (id, newStatus) => {
     setTasks(tasks.map(task =>
       task.id===id ? {...task, status: newStatus} : task
     ));
+  }
+
+  const updateTask = (updatedTask) => {
+    setTasks(tasks.map(task => 
+      task.id === updatedTask.id ? updatedTask: task 
+    ));
+    handleQuitEditing();
+  }
+
+
+
+  const handleEdit = (task) => {
+    setEditingTask(task);
+  }
+
+  const handleQuitEditing = () => {
+    setEditingTask(null);
   }
 
   useEffect(() => {
@@ -114,10 +147,15 @@ function App() {
   return (
     <div>
       <div className="flex gap-[1%] ml-[0%]">
-        <Panel key={1} tasks={todoTasks} heading={"TODO:"}></Panel>
-        <Panel key={2} tasks={InProgressTasks} heading={"IN PROGRESS:"}></Panel>
-        <Panel key={3} tasks={doneTasks} heading={"DONE:"}></Panel>
+        <Panel key={1} tasks={todoTasks} onEdit={handleEdit} status={Status.ToDo}></Panel>
+        <Panel key={2} tasks={InProgressTasks} onEdit={handleEdit} status={Status.InProgress}></Panel>
+        <Panel key={3} tasks={doneTasks} onEdit={handleEdit} status={Status.Done}></Panel>
       </div>
+
+      <AddPopupTask />
+      {/* {editingTask && (<EditPopupTask current_task={editingTask} onExit={handleQuitEditing} onSave = {updateTask} first_input={"penis balls"} />)}
+       */}
+
     </div>
   );
 }

@@ -1,16 +1,15 @@
 import React from 'react'
 import Card from './Card'
 import './Panel.css'
-import { MdAddCircleOutline } from "react-icons/md";
 
-const Panel = ({tasks, heading}) => {
+const Panel = ({tasks, status, onEdit}) => {
   return (
     <div className="relative custom-scrollbar mt-[3vh] bg-[#232629] w-[33%] flex flex-col rounded-xl h-[90vh]">
         
         <div className='p-6 m-1 rounded-t-xl bg-[#151515] flex flex-nowrap items-center'>
             <div className='rounded-full w-10 h-10 font-bold bg-[#2b2b2b] text-center pt-1 text-2xl text-white'>{tasks.length}</div>
             <h1 className="font-bold text-center grow text-2xl text-white">
-                {heading}
+                {status}
             </h1>
         </div>
         
@@ -19,9 +18,8 @@ const Panel = ({tasks, heading}) => {
         {tasks.map((task) =>   
           <Card 
             key ={task.id}
-            name={task.name} 
-            description={task.desciption}
-            status={task.status}
+            task={task}
+            onEdit={onEdit}
           />
         )}
         </div>
