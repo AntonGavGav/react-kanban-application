@@ -23,7 +23,8 @@ const AddPopupTask = ({status, onExit, currentId, onAdd}) => {
             name: heading,
             description: description,
             status: status,
-            date: selectedDate
+            date: selectedDate,
+            isBeingEdited: false,
         };
         onAdd(newTask);
         setHeading("");

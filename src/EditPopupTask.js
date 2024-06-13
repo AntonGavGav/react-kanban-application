@@ -2,8 +2,9 @@ import React, { useRef, useState, useEffect } from 'react'
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css'
 import { LuCalendarHeart } from "react-icons/lu";
+import { RiDeleteBinLine } from "react-icons/ri";
 
-const EditPopupTask = ({current_task, onExit, onSave}) => {
+const EditPopupTask = ({current_task, onExit, onSave, onDelete}) => {
     const [heading, setHeading] = useState(current_task.name);
     const [description, setDescription] = useState(current_task.description);
     const [selectedDate, setSelectedDate] = useState(current_task.date);
@@ -17,7 +18,13 @@ const EditPopupTask = ({current_task, onExit, onSave}) => {
     }
 
     const handleSubmit = () => {
-        onSave({...current_task, name : heading, description : description, date: selectedDate})
+        onSave({...current_task,
+            name : heading,
+            description : description, 
+            date: selectedDate,
+            isBeingEdited: false,
+        })
+        console.log(selectedDate);
     }
 
     const preventParentClicking = (event) => {
@@ -32,7 +39,16 @@ const EditPopupTask = ({current_task, onExit, onSave}) => {
 
     return (
         <div onClick={onExit} className='fixed top-0 right-0 bottom-0 left-0'>
-            <div onClick={preventParentClicking} className='absolute w-[35rem] p-5 rounded-3xl shadow-2xl top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] bg-[#151515]'>
+            <div onClick={preventParentClicking} className='border-2 border-purple-500 absolute w-[35rem] p-5 rounded-3xl shadow-2xl top-[50%] translate-y-[-50%] left-[50%] translate-x-[-50%] bg-[#151515]'>
+            <RiDeleteBinLine
+                onClick={() => onDelete(current_task.id)}
+                className='
+                absolute w-9 h-9 right-6
+                bg-transparent text-[#232629]
+                hover:cursor-pointer
+                hover:text-white
+                ease-in-out duration-200'
+            />
                 <label className=''>
                     <input
                         className='h-[100%] text-4xl outline-none w-[100%] py-2 px-1 text-white bg-transparent'

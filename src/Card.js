@@ -1,14 +1,25 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css'
 import { LuCalendarHeart } from "react-icons/lu";
 
 const Card = ({task, onEdit}) => {
+
     return (
       <div 
-      onClick={() => onEdit(task)}
-      className='[&>*]:text-white shadow-sm border-2 border-[#252525] rounded-2xl px-4 py-2 m-2 bg-[#151515]'
+        onClick={() => onEdit(task)}
+        className='[&>*]:text-white 
+        shadow-sm border-2 border-[#252525] rounded-2xl 
+        px-4 py-2 m-2 
+        bg-[#151515]
+        hover:border-purple-500
+        hover:border-dashed
+        hover:cursor-pointer'
+        draggable
+        style={{
+          borderColor:task.isBeingEdited ? '#a855f7' : ""
+        }}
       >
           <h1 className='text-2xl'>
             {task.name}
@@ -24,7 +35,7 @@ const Card = ({task, onEdit}) => {
             <label className='flex gap-1 [&>*]:m-2'>
               <LuCalendarHeart className='top-1 relative left-11' />
               <DatePicker 
-                className='box-border pr-1 text-right bg-transparent w-[70px]'
+                className='hover:cursor-pointer box-border pr-1 text-right bg-transparent w-[70px]'
                 dateFormat="MM/dd"
                 closeOnScroll={true}
                 selected={task.date}

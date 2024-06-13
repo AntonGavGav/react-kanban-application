@@ -29,7 +29,7 @@ function App() {
     setTasks(tasks.map(task => 
       task.id === updatedTask.id ? updatedTask: task 
     ));
-    handleQuitEditing();
+    setEditingTask(null);
   }
 
   const addTask = (newTask) => {
@@ -37,13 +37,24 @@ function App() {
     setCurrentId(currentId+1);
     handleQuitAdding();
   }
+  
+  const handleDelete = (task_id) => {
+    setEditingTask(null);
+    setTasks(tasks.filter(task => task.id !== task_id))
+  }
 
 
 
   const handleEdit = (task) => {
     setEditingTask(task);
+    setTasks(tasks.map(map_task =>
+      map_task.id===task.id ? {...map_task, isBeingEdited: true} : map_task
+    ));
   }
   const handleQuitEditing = () => {
+    setTasks(tasks.map(map_task =>
+      map_task.id===editingTask.id ? {...map_task, isBeingEdited: false} : map_task
+    ));
     setEditingTask(null);
   }
 
@@ -67,7 +78,7 @@ function App() {
       </div>
 
       {addTaskStatus && (<AddPopupTask status ={addTaskStatus} onExit={handleQuitAdding} currentId={currentId} onAdd={addTask} />)}
-      {editingTask && (<EditPopupTask current_task={editingTask} onExit={handleQuitEditing} onSave = {updateTask} first_input={"penis balls"} />)}
+      {editingTask && (<EditPopupTask current_task={editingTask} onDelete={handleDelete} onExit={handleQuitEditing} onSave = {updateTask} first_input={"penis balls"} />)}
 
     </div>
   );
