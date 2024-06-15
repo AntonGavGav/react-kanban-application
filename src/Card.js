@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, {useRef} from 'react';
 import DatePicker from 'react-datepicker';
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css'
@@ -31,6 +31,7 @@ const Card = ({task, onEdit, changeStatus}) => {
       return status;
     }
 
+    //browser api for dragging is just fucked up, i had to implement my own logic
     const handleMouseDown = (event) => {
       clickTimer = setTimeout(() => {
 
