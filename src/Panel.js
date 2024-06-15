@@ -2,7 +2,7 @@ import React from 'react'
 import Card from './Card'
 import './Panel.css'
 
-const Panel = ({tasks, status, onEdit, onAdd, editingTask}) => {
+const Panel = ({tasks, status, onEdit, onAdd, editingTask, changeStatus}) => {
   return (
     <div className="relative custom-scrollbar mt-[3vh] bg-[#232629] w-[33%] flex flex-col rounded-xl h-[90vh]">
         
@@ -17,6 +17,7 @@ const Panel = ({tasks, status, onEdit, onAdd, editingTask}) => {
         <div className='relative h-[81%] overflow-y-auto'>
         {tasks.map((task) =>   
           <Card 
+          changeStatus={changeStatus}
             editingTask={editingTask}
             key ={task.id}
             task={task}

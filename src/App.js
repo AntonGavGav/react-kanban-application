@@ -72,9 +72,9 @@ function App() {
   return (
     <div>
       <div className="flex gap-[1%] ml-[0%]">
-        <Panel key={1} onAdd={() => {setAddTaskStatus(Status.ToDo)}} tasks={todoTasks} onEdit={handleEdit} status={Status.ToDo}></Panel>
-        <Panel key={2} onAdd={() => {setAddTaskStatus(Status.InProgress)}} tasks={InProgressTasks} onEdit={handleEdit} status={Status.InProgress}></Panel>
-        <Panel key={3} onAdd={() => {setAddTaskStatus(Status.Done)}} tasks={doneTasks} onEdit={handleEdit} status={Status.Done}></Panel>
+        <Panel key={1} onAdd={() => {setAddTaskStatus(Status.ToDo)}} changeStatus = {updateTaskStatus} tasks={todoTasks} onEdit={handleEdit} status={Status.ToDo}></Panel>
+        <Panel key={2} onAdd={() => {setAddTaskStatus(Status.InProgress)}} changeStatus = {updateTaskStatus} tasks={InProgressTasks} onEdit={handleEdit} status={Status.InProgress}></Panel>
+        <Panel key={3} onAdd={() => {setAddTaskStatus(Status.Done)}} changeStatus = {updateTaskStatus} tasks={doneTasks} onEdit={handleEdit} status={Status.Done}></Panel>
       </div>
 
       {addTaskStatus && (<AddPopupTask status ={addTaskStatus} onExit={handleQuitAdding} currentId={currentId} onAdd={addTask} />)}

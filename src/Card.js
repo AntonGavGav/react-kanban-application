@@ -3,16 +3,25 @@ import DatePicker from 'react-datepicker';
 import './App.css';
 import 'react-datepicker/dist/react-datepicker.css'
 import { LuCalendarHeart } from "react-icons/lu";
+import Status from './Status';
 
-const Card = ({task, onEdit}) => {
+const Card = ({task, onEdit, changeStatus}) => {
 
     const taskRef = useRef(null);
     let clickTimer = null;
+
+    const hanldeStatusChange = () => {
+      console.log("change")
+      changeStatus(task.id, Status.Done);
+    }
 
     const handleMouseDown = (event) => {
       clickTimer = setTimeout(() => {
 
       const task = taskRef.current;
+      const prevParent = task.parentElement;
+      console.log(prevParent);
+
 
       task.style.position ='absolute';
       task.style.zIndex = 1000;
@@ -33,8 +42,10 @@ const Card = ({task, onEdit}) => {
 
       document.addEventListener('mousemove', onMouseMove);
       task.onmouseup = () => {
-        console.log("yeah")
+        prevParent.appendChild(task);
+        clearTimeout(clickTimer);
         document.removeEventListener('mousemove', onMouseMove);
+        hanldeStatusChange();
         task.onmouseup = null;
       };
     }, 100);
