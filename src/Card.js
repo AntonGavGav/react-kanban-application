@@ -73,7 +73,9 @@ const Card = ({task, onEdit, changeStatus}) => {
 
         clearTimeout(clickTimer);
         task_card.onmouseup = null;
-        
+        setTimeout(() => {
+          task_card.style.visibility = 'visible';
+        }, 10);
       };
     }, 100);
     };

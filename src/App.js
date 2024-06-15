@@ -7,12 +7,25 @@ import "./App.css"
 
 function App() {
 
-  const [tasks, setTasks] = useState([
+  const [tasks, setTasks] = useState(() => {
+    const storedTasks = localStorage.getItem('tasks');
+    return storedTasks ? JSON.parse(storedTasks) : [];
+  });
+
+  const [currentId, setCurrentId] = useState(() => {
+    const storedCurrentId = localStorage.getItem('currentId');
+    return storedCurrentId ? parseInt(storedCurrentId) : 1;
+  });
+
+  useEffect(() => {
+    localStorage.setItem('tasks', JSON.stringify(tasks));
+  }, [tasks]);
+  useEffect(() => {
+    localStorage.setItem('currentId', currentId.toString());
+  }, [currentId]);
+
+
   
-  ]);
-
-
-  const [currentId, setCurrentId] = useState(1);
   const [todoTasks, setTodoTasks] = useState([]);
   const [InProgressTasks, setInProgressTasks] = useState([]);
   const [doneTasks, setDoneTasks] = useState([]);
