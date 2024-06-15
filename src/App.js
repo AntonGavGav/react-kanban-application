@@ -1,8 +1,9 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Status from "./Status";
 import Panel from "./Panel";
 import EditPopupTask from "./EditPopupTask";
 import AddPopupTask from "./AddPopupTask";
+import "./App.css"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
 
   const [editingTask, setEditingTask] = useState(null);
   const [addTaskStatus, setAddTaskStatus] = useState(null);
+  
 
   const updateTaskStatus = (id, newStatus) => {
     setTasks(tasks.map(task =>

@@ -9,44 +9,71 @@ const Card = ({task, onEdit, changeStatus}) => {
 
     const taskRef = useRef(null);
     let clickTimer = null;
+    let mouseX = null;
 
-    const hanldeStatusChange = () => {
-      console.log("change")
-      changeStatus(task.id, Status.Done);
+
+    const handleStatusChange = (status) => {
+        changeStatus(task.id, status);
+    }
+    const calculateStatus = () => {
+      const screenWidth = window.innerWidth;
+      const mouseXPos = (mouseX / screenWidth) *100;
+      let status = null;
+      if(mouseXPos < 33){
+        status = Status.ToDo;
+      }
+      else if(mouseXPos >= 33 && mouseXPos < 66 ){
+        status = Status.InProgress;
+      }
+      else if(mouseXPos >= 66){
+        status = Status.Done;
+      }
+      return status;
     }
 
     const handleMouseDown = (event) => {
       clickTimer = setTimeout(() => {
 
-      const task = taskRef.current;
-      const prevParent = task.parentElement;
-      console.log(prevParent);
+      const task_card = taskRef.current;
+      const prevParent = task_card.parentElement;
 
 
-      task.style.position ='absolute';
-      task.style.zIndex = 1000;
+      task_card.style.position ='absolute';
+      task_card.style.zIndex = 1000;
 
-      document.body.append(task);
+      document.body.append(task_card);
     
 
       const moveAt = (pageX, pageY) => {
-        task.style.left = pageX - task.offsetWidth / 2 + 'px';
-        task.style.top = pageY - task.offsetHeight / 2 + 'px';
+        task_card.style.left = pageX - task_card.offsetWidth / 2 + 'px';
+        task_card.style.top = pageY - task_card.offsetHeight / 2 + 'px';
       };
 
       moveAt(event.pageX, event.pageY)
 
       const onMouseMove = (event) => {
         moveAt(event.pageX, event.pageY);
+        mouseX = event.clientX;
       };
 
       document.addEventListener('mousemove', onMouseMove);
-      task.onmouseup = () => {
-        prevParent.appendChild(task);
-        clearTimeout(clickTimer);
+      task_card.onmouseup = () => {
+        task_card.style.visibility = 'hidden';
         document.removeEventListener('mousemove', onMouseMove);
-        hanldeStatusChange();
-        task.onmouseup = null;
+        task_card.onmouseup = null;
+
+        const status = calculateStatus();
+        handleStatusChange(status);
+
+
+        prevParent.appendChild(task_card);
+        
+        task_card.style.position = 'static';
+        task_card.style.zIndex = 'auto';
+
+        clearTimeout(clickTimer);
+        task_card.onmouseup = null;
+        
       };
     }, 100);
     };

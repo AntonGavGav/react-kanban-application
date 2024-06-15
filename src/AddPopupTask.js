@@ -5,8 +5,8 @@ import { LuCalendarHeart } from "react-icons/lu";
 
 
 const AddPopupTask = ({status, onExit, currentId, onAdd}) => {
-    const [heading, setHeading] = useState();
-    const [description, setDescription] = useState();
+    const [heading, setHeading] = useState('');
+    const [description, setDescription] = useState('');
     const [selectedDate, setSelectedDate] = useState(null);
 
     const inputReference = useRef();

@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { forwardRef } from 'react'
 import Card from './Card'
 import './Panel.css'
 
-const Panel = ({tasks, status, onEdit, onAdd, editingTask, changeStatus}) => {
+const Panel = ({ tasks, status, onEdit, onAdd, editingTask, changeStatus}) => {
   return (
     <div className="relative custom-scrollbar mt-[3vh] bg-[#232629] w-[33%] flex flex-col rounded-xl h-[90vh]">
         
@@ -30,6 +30,6 @@ const Panel = ({tasks, status, onEdit, onAdd, editingTask, changeStatus}) => {
         </button>
     </div>
   )
-}
+};
 
 export default Panel

@@ -5,9 +5,9 @@ import { LuCalendarHeart } from "react-icons/lu";
 import { RiDeleteBinLine } from "react-icons/ri";
 
 const EditPopupTask = ({current_task, onExit, onSave, onDelete}) => {
-    const [heading, setHeading] = useState(current_task.name);
-    const [description, setDescription] = useState(current_task.description);
-    const [selectedDate, setSelectedDate] = useState(current_task.date);
+    const [heading, setHeading] = useState(current_task.name || '');
+    const [description, setDescription] = useState(current_task.description || '');
+    const [selectedDate, setSelectedDate] = useState(current_task.date || null);
 
     const inputReference = useRef();
 
@@ -24,7 +24,6 @@ const EditPopupTask = ({current_task, onExit, onSave, onDelete}) => {
             date: selectedDate,
             isBeingEdited: false,
         })
-        console.log(selectedDate);
     }
 
     const preventParentClicking = (event) => {
