@@ -15,3 +15,7 @@ Having such an API we would need to change our UI solution.  So that when scrol
 2. >Let's assume that we would like to be able to send a link to a specific task to someone. How would you implement this requirement?
 
 This task could be also solved by having a backend API which returns task data by task id. Since all tasks are stored in DB each could have its unique id. So we could call the server for the details of the task given its id. Then on UI we would need to implement specific page which receives task id as query parameter. When this page opened we take the id from params and call backend. Then just display data received in response.
+
+
+### Link to a page:
+https://antongavgav.github.io/react-kanban-application/
